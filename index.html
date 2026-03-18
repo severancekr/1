@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>신촌업무보고 시스템</title>
+  <title>신촌상황보고시스템</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
   <style>
@@ -106,12 +106,23 @@
       </div>
 
       <select class="family-dropdown" onchange="handleFamilySite(this)">
-        <option value="" disabled selected>🌐 패밀리 사이트 바로가기</option>
+        <option value="" disabled selected>🌐 사이트 바로가기</option>
         <option value="https://severancekr.github.io/EGG-DROP/">애그드랍 앱</option>
         <option value="https://scube.s-tec.co.kr/sso/user/login/view">에스텍S-CUBE</option>
+        <option value="https://www.onsafe.co.kr/">온세이프(직무교육)</option>
+        <option value="http://pms.s-tec.co.kr">개인정보교육</option>
+        <option value="https://stec.welstorymall.com/">웰스토리몰</option>       
         <option value="https://www.s-tec.co.kr/">에스텍시스템</option>
         <option value="AUTH_SCHEDULE">스케줄배정</option>
       </select>
+
+      <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; width: 100%; min-height: 60px;">
+       <script src="https://ads-partners.coupang.com/g.js"></script>
+<script>
+	new PartnersCoupang.G({"id":973374,"template":"carousel","trackingCode":"AF1622224","subId":"stecsysteam","width":"250","height":"60","tsource":""});
+</script>
+      </div>
+      
     </div>
 
     <div id="form1Screen" class="screen">
@@ -216,6 +227,25 @@
     });
 
     document.querySelectorAll('.sync-worker').forEach(input => { input.addEventListener('input', function() { document.querySelectorAll('.sync-worker').forEach(el => { el.value = this.value; localStorage.setItem('as_' + el.id, this.value); }); }); });
+
+    // ★ 직접입력 활성화 코드 복구 완료 ★
+    function handleDirectInput(selectId, inputId) { 
+        document.getElementById(selectId).addEventListener('change', function() { 
+            const input = document.getElementById(inputId); 
+            if(this.value === '직접입력') { 
+                input.style.display = 'block'; 
+                input.required = true; 
+            } else { 
+                input.style.display = 'none'; 
+                input.required = false; 
+                input.value = ''; 
+            } 
+        }); 
+    }
+    handleDirectInput('typeSelect', 'customType');
+    handleDirectInput('preventionSelect', 'customPrevention');
+    handleDirectInput('oldCodeSelect4', 'customOldCode4');
+    handleDirectInput('newCodeSelect4', 'customNewCode4');
 
     const handleSingleFile = (fileInputId, dataObj) => new Promise((resolve) => {
         const fi = document.getElementById(fileInputId);
